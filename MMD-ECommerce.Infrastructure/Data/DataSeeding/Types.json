@@ -1,0 +1,102 @@
+[
+    {
+        "Name": "Smartphone",
+        "CreatedAt": "2023-02-01T10:00:00",
+        "UpdatedAt": "2023-02-01T10:00:00"
+    },
+    {
+        "Name": "Laptop",
+        "CreatedAt": "2023-02-02T11:00:00",
+        "UpdatedAt": "2023-02-02T11:00:00"
+    },
+    {
+        "Name": "Headphones",
+        "CreatedAt": "2023-02-03T12:00:00",
+        "UpdatedAt": "2023-02-03T12:00:00"
+    },
+    {
+        "Name": "Sneakers",
+        "CreatedAt": "2023-02-04T13:00:00",
+        "UpdatedAt": "2023-02-04T13:00:00"
+    },
+    {
+        "Name": "Jeans",
+        "CreatedAt": "2023-02-05T14:00:00",
+        "UpdatedAt": "2023-02-05T14:00:00"
+    },
+    {
+        "Name": "Sunglasses",
+        "CreatedAt": "2023-02-06T15:00:00",
+        "UpdatedAt": "2023-02-06T15:00:00"
+    },
+    {
+        "Name": "Kitchen Appliance",
+        "CreatedAt": "2023-02-07T16:00:00",
+        "UpdatedAt": "2023-02-07T16:00:00"
+    },
+    {
+        "Name": "Vacuum Cleaner",
+        "CreatedAt": "2023-02-08T17:00:00",
+        "UpdatedAt": "2023-02-08T17:00:00"
+    },
+    {
+        "Name": "Television",
+        "CreatedAt": "2023-02-09T18:00:00",
+        "UpdatedAt": "2023-02-09T18:00:00"
+    },
+    {
+        "Name": "Gaming Console",
+        "CreatedAt": "2023-02-10T19:00:00",
+        "UpdatedAt": "2023-02-10T19:00:00"
+    },
+    {
+        "Name": "Camera",
+        "CreatedAt": "2023-02-11T20:00:00",
+        "UpdatedAt": "2023-02-11T20:00:00"
+    },
+    {
+        "Name": "Smartwatch",
+        "CreatedAt": "2023-02-12T21:00:00",
+        "UpdatedAt": "2023-02-12T21:00:00"
+    },
+    {
+        "Name": "Tablet",
+        "CreatedAt": "2023-02-13T22:00:00",
+        "UpdatedAt": "2023-02-13T22:00:00"
+    },
+    {
+        "Name": "Printer",
+        "CreatedAt": "2023-02-14T23:00:00",
+        "UpdatedAt": "2023-02-14T23:00:00"
+    },
+    {
+        "Name": "Router",
+        "CreatedAt": "2023-02-15T10:00:00",
+        "UpdatedAt": "2023-02-15T10:00:00"
+    },
+    {
+        "Name": "Monitor",
+        "CreatedAt": "2023-02-16T11:00:00",
+        "UpdatedAt": "2023-02-16T11:00:00"
+    },
+    {
+        "Name": "Fitness Tracker",
+        "CreatedAt": "2023-02-17T12:00:00",
+        "UpdatedAt": "2023-02-17T12:00:00"
+    },
+    {
+        "Name": "Refrigerator",
+        "CreatedAt": "2023-02-18T13:00:00",
+        "UpdatedAt": "2023-02-18T13:00:00"
+    },
+    {
+        "Name": "Washing Machine",
+        "CreatedAt": "2023-02-19T14:00:00",
+        "UpdatedAt": "2023-02-19T14:00:00"
+    },
+    {
+        "Name": "Microwave Oven",
+        "CreatedAt": "2023-02-20T15:00:00",
+        "UpdatedAt": "2023-02-20T15:00:00"
+    }
+]

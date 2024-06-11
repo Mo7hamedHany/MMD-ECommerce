@@ -1,0 +1,29 @@
+﻿using AutoMapper;
+using MMD_ECommerce.Core.DTOs;
+using MMD_ECommerce.Core.Features.Products.Query.Models;
+using MMD_ECommerce.Core.Helpers;
+using MMD_ECommerce.Data.Models.Products;
+using MMD_ECommerce.Infrastructure.Specifications.Products;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MMD_ECommerce.Core.MappingProfiles
+{
+    public class ProductProfile : Profile
+    {
+        public ProductProfile()
+        {
+            CreateMap<Product, ProductToReturnDto>()
+    .ForMember(d => d.BrandName, o => o.MapFrom(s => s.ProductBrand.Name))
+    .ForMember(d => d.TypeName, o => o.MapFrom(s => s.ProductType.Name))
+    .ForMember(d => d.CategoryName, o => o.MapFrom(s => s.Category.Name))
+    .ForMember(d => d.PictureUrl, o => o.MapFrom<PictureUrlResolver>());
+            CreateMap<GetProductsQuery, ProductSpecificationParameters>();
+
+
+        }
+    }
+}

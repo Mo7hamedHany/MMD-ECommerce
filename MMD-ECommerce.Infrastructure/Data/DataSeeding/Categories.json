@@ -1,0 +1,23 @@
+[
+  {
+      "Name": "Electronics",
+      "Description": "Devices and gadgets including smartphones, laptops, and accessories.",
+      "AdminId": 1,
+      "CreatedAt": "2023-01-15T10:00:00",
+      "UpdatedAt": "2023-01-15T10:00:00"
+  },
+  {
+      "Name": "Fashion",
+      "Description": "Clothing, footwear, and accessories for men, women, and children.",
+      "AdminId": 2,
+      "CreatedAt": "2023-02-20T12:30:00",
+      "UpdatedAt": "2023-02-20T12:30:00"
+  },
+  {
+      "Name": "Home & Kitchen",
+      "Description": "Furniture, appliances, and kitchenware for your home.",
+      "AdminId": 3,
+      "CreatedAt": "2023-03-10T09:45:00",
+      "UpdatedAt": "2023-03-10T09:45:00"
+  }
+]

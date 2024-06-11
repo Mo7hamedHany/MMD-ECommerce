@@ -1,0 +1,222 @@
+[
+  {
+    "Name": "iPhone 14 Pro",
+    "Description": "Latest Apple smartphone with advanced features.",
+    "PictureUrl": "images/products/iphone14pro.jpg",
+    "Price": 999.99,
+    "BrandId": 1,
+    "TypeId": 1,
+    "CategoryId": 1,
+    "CreatedAt": "2023-04-01T10:00:00",
+    "UpdatedAt": "2023-04-01T10:00:00"
+  },
+  {
+    "Name": "Samsung Galaxy S21",
+    "Description": "High-end Android smartphone with a powerful processor.",
+    "PictureUrl": "images/products/galaxys21.jpg",
+    "Price": 799.99,
+    "BrandId": 2,
+    "TypeId": 1,
+    "CategoryId": 1,
+    "CreatedAt": "2023-04-02T11:00:00",
+    "UpdatedAt": "2023-04-02T11:00:00"
+  },
+  {
+    "Name": "MacBook Pro 16",
+    "Description": "Apple's high-performance laptop with M1 chip.",
+    "PictureUrl": "images/products/macbookpro16.jpg",
+    "Price": 2399.99,
+    "BrandId": 1,
+    "TypeId": 2,
+    "CategoryId": 1,
+    "CreatedAt": "2023-04-03T12:00:00",
+    "UpdatedAt": "2023-04-03T12:00:00"
+  },
+  {
+    "Name": "Dell XPS 13",
+    "Description": "Compact and powerful Windows laptop.",
+    "PictureUrl": "images/products/dellxps13.jpg",
+    "Price": 1299.99,
+    "BrandId": 3,
+    "TypeId": 2,
+    "CategoryId": 1,
+    "CreatedAt": "2023-04-04T13:00:00",
+    "UpdatedAt": "2023-04-04T13:00:00"
+  },
+  {
+    "Name": "Sony WH-1000XM4",
+    "Description": "Industry-leading noise-canceling headphones.",
+    "PictureUrl": "images/products/sonywh1000xm4.jpg",
+    "Price": 349.99,
+    "BrandId": 4,
+    "TypeId": 3,
+    "CategoryId": 1,
+    "CreatedAt": "2023-04-05T14:00:00",
+    "UpdatedAt": "2023-04-05T14:00:00"
+  },
+  {
+    "Name": "Nike Air Max 270",
+    "Description": "Comfortable and stylish sneakers.",
+    "PictureUrl": "images/products/nikeairmax270.jpg",
+    "Price": 149.99,
+    "BrandId": 5,
+    "TypeId": 4,
+    "CategoryId": 2,
+    "CreatedAt": "2023-04-06T15:00:00",
+    "UpdatedAt": "2023-04-06T15:00:00"
+  },
+  {
+    "Name": "Adidas Ultraboost 21",
+    "Description": "High-performance running shoes.",
+    "PictureUrl": "images/products/adidasultraboost21.jpg",
+    "Price": 179.99,
+    "BrandId": 6,
+    "TypeId": 4,
+    "CategoryId": 2,
+    "CreatedAt": "2023-04-07T16:00:00",
+    "UpdatedAt": "2023-04-07T16:00:00"
+  },
+  {
+    "Name": "Levi's 501 Original Jeans",
+    "Description": "Classic straight-leg jeans.",
+    "PictureUrl": "images/products/levis501.jpg",
+    "Price": 89.99,
+    "BrandId": 7,
+    "TypeId": 5,
+    "CategoryId": 2,
+    "CreatedAt": "2023-04-08T17:00:00",
+    "UpdatedAt": "2023-04-08T17:00:00"
+  },
+  {
+    "Name": "Ray-Ban Aviator Sunglasses",
+    "Description": "Iconic aviator sunglasses with polarized lenses.",
+    "PictureUrl": "images/products/raybanaviator.jpg",
+    "Price": 159.99,
+    "BrandId": 8,
+    "TypeId": 6,
+    "CategoryId": 2,
+    "CreatedAt": "2023-04-09T18:00:00",
+    "UpdatedAt": "2023-04-09T18:00:00"
+  },
+  {
+    "Name": "Instant Pot Duo 7-in-1",
+    "Description": "Multifunctional pressure cooker for easy meal prep.",
+    "PictureUrl": "images/products/instantpotduo.jpg",
+    "Price": 99.99,
+    "BrandId": 9,
+    "TypeId": 7,
+    "CategoryId": 3,
+    "CreatedAt": "2023-04-10T19:00:00",
+    "UpdatedAt": "2023-04-10T19:00:00"
+  },
+  {
+    "Name": "Dyson V11 Vacuum",
+    "Description": "High-efficiency cordless vacuum cleaner.",
+    "PictureUrl": "images/products/dysonv11.jpg",
+    "Price": 599.99,
+    "BrandId": 10,
+    "TypeId": 8,
+    "CategoryId": 3,
+    "CreatedAt": "2023-04-11T20:00:00",
+    "UpdatedAt": "2023-04-11T20:00:00"
+  },
+  {
+    "Name": "KitchenAid Stand Mixer",
+    "Description": "Versatile kitchen mixer for baking and cooking.",
+    "PictureUrl": "images/products/kitchenaidstandmixer.jpg",
+    "Price": 399.99,
+    "BrandId": 11,
+    "TypeId": 7,
+    "CategoryId": 3,
+    "CreatedAt": "2023-04-12T21:00:00",
+    "UpdatedAt": "2023-04-12T21:00:00"
+  },
+  {
+    "Name": "LG OLED55CXPUA",
+    "Description": "55-inch 4K OLED TV with stunning picture quality.",
+    "PictureUrl": "images/products/lgoled55cxpua.jpg",
+    "Price": 1499.99,
+    "BrandId": 12,
+    "TypeId": 9,
+    "CategoryId": 1,
+    "CreatedAt": "2023-04-13T22:00:00",
+    "UpdatedAt": "2023-04-13T22:00:00"
+  },
+  {
+    "Name": "Sony PlayStation 5",
+    "Description": "Next-gen gaming console with immersive gameplay.",
+    "PictureUrl": "images/products/ps5.jpg",
+    "Price": 499.99,
+    "BrandId": 4,
+    "TypeId": 10,
+    "CategoryId": 1,
+    "CreatedAt": "2023-04-14T23:00:00",
+    "UpdatedAt": "2023-04-14T23:00:00"
+  },
+  {
+    "Name": "Bose QuietComfort 35 II",
+    "Description": "Wireless noise-canceling headphones.",
+    "PictureUrl": "images/products/boseqc35ii.jpg",
+    "Price": 299.99,
+    "BrandId": 13,
+    "TypeId": 3,
+    "CategoryId": 1,
+    "CreatedAt": "2023-04-15T10:00:00",
+    "UpdatedAt": "2023-04-15T10:00:00"
+  },
+  {
+    "Name": "Microsoft Surface Pro 7",
+    "Description": "Versatile 2-in-1 laptop and tablet.",
+    "PictureUrl": "images/products/surfacepro7.jpg",
+    "Price": 899.99,
+    "BrandId": 14,
+    "TypeId": 2,
+    "CategoryId": 1,
+    "CreatedAt": "2023-04-16T11:00:00",
+    "UpdatedAt": "2023-04-16T11:00:00"
+  },
+  {
+    "Name": "Asus ROG Strix",
+    "Description": "High-performance gaming laptop.",
+    "PictureUrl": "images/products/asusrogstrix.jpg",
+    "Price": 1799.99,
+    "BrandId": 15,
+    "TypeId": 2,
+    "CategoryId": 1,
+    "CreatedAt": "2023-04-17T12:00:00",
+    "UpdatedAt": "2023-04-17T12:00:00"
+  },
+  {
+    "Name": "HP Envy 13",
+    "Description": "Slim and stylish laptop for everyday use.",
+    "PictureUrl": "images/products/hpenvy13.jpg",
+    "Price": 999.99,
+    "BrandId": 16,
+    "TypeId": 2,
+    "CategoryId": 1,
+    "CreatedAt": "2023-04-18T13:00:00",
+    "UpdatedAt": "2023-04-18T13:00:00"
+  },
+  {
+    "Name": "Canon EOS R5",
+    "Description": "Professional-grade mirrorless camera.",
+    "PictureUrl": "images/products/canoneosr5.jpg",
+    "Price": 3899.99,
+    "BrandId": 17,
+    "TypeId": 11,
+    "CategoryId": 1,
+    "CreatedAt": "2023-04-19T14:00:00",
+    "UpdatedAt": "2023-04-19T14:00:00"
+  },
+  {
+    "Name": "Nintendo Switch",
+    "Description": "Popular handheld gaming console.",
+    "PictureUrl": "images/products/nintendoswitch.jpg",
+    "Price": 299.99,
+    "BrandId": 18,
+    "TypeId": 10,
+    "CategoryId": 1,
+    "CreatedAt": "2023-04-20T15:00:00",
+    "UpdatedAt": "2023-04-20T15:00:00"
+  }
+]
