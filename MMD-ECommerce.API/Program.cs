@@ -47,6 +47,8 @@ namespace MMD_ECommerce.API
 
     });
 
+            builder.Services.AddSwaggerService();
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MMD_ECommerce.Service.Abstractions;
 using MMD_ECommerce.Service.Implementations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Service
 {
@@ -17,6 +12,7 @@ namespace MMD_ECommerce.Service
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IAccountService, AccountService>();
 
             return services;
         }
