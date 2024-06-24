@@ -3,13 +3,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MMD_ECommerce.Data.Models.Users;
 using MMD_ECommerce.Service.Abstractions;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Service.Implementations
 {
@@ -18,9 +14,10 @@ namespace MMD_ECommerce.Service.Implementations
         private readonly IConfiguration _configuration;
         private readonly UserManager<AppUser> _userManager;
 
-        public TokenService(IConfiguration configuration)
+        public TokenService(IConfiguration configuration, UserManager<AppUser> userManager)
         {
             _configuration = configuration;
+            _userManager = userManager;
         }
 
         public async Task<string> GetToken(AppUser user)

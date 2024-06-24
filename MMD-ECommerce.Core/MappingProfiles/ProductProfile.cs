@@ -4,11 +4,6 @@ using MMD_ECommerce.Core.Features.Products.Query.Models;
 using MMD_ECommerce.Core.Helpers;
 using MMD_ECommerce.Data.Models.Products;
 using MMD_ECommerce.Infrastructure.Specifications.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Core.MappingProfiles
 {

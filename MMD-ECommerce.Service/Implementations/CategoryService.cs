@@ -17,6 +17,8 @@ namespace MMD_ECommerce.Service.Implementations
         {
             if (category == null) return "Bad Request";
 
+            category.CreatedAt = DateTime.Now;
+            category.UpdatedAt = DateTime.Now;
             await _unitOfWork.Repository<Category, int>().AddAsync(category);
             await _unitOfWork.CompleteAsync();
 
@@ -47,6 +49,8 @@ namespace MMD_ECommerce.Service.Implementations
 
             // Detach the existing tracked entity
             _unitOfWork.Repository<Category, int>().Detach(existingCategory);
+
+            category.UpdatedAt = DateTime.Now;
 
             _unitOfWork.Repository<Category, int>().Update(category);
             await _unitOfWork.CompleteAsync();
