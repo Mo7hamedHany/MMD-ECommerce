@@ -5,6 +5,7 @@ using MMD_ECommerce.Core.Features.Category.Query.Models;
 
 namespace MMD_ECommerce.API.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : AppControllerBase
@@ -19,7 +20,7 @@ namespace MMD_ECommerce.API.Controllers
         [HttpGet("id")]
         public async Task<ActionResult> GetCategoryById([FromQuery] int id)
         {
-            return Ok(await Mediator.Send(new GetCategoryByIdQuery(id)));
+            return NewResult(await Mediator.Send(new GetCategoryByIdQuery(id)));
         }
 
         [HttpPost]

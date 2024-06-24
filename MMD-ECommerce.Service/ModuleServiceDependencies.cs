@@ -13,7 +13,10 @@ namespace MMD_ECommerce.Service
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IAccountService, AccountService>();
-
+            services.AddScoped<IBasketService, BasketService>();
+            services.AddScoped<ICashService, CashService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IPaymentService, PaymentService>();
             return services;
         }
     }

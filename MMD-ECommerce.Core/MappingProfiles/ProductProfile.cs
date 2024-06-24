@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MMD_ECommerce.Core.DTOs;
+using MMD_ECommerce.Core.DTOs.Product;
 using MMD_ECommerce.Core.Features.Products.Query.Models;
 using MMD_ECommerce.Core.Helpers;
 using MMD_ECommerce.Data.Models.Products;
@@ -15,10 +15,15 @@ namespace MMD_ECommerce.Core.MappingProfiles
     .ForMember(d => d.BrandName, o => o.MapFrom(s => s.ProductBrand.Name))
     .ForMember(d => d.TypeName, o => o.MapFrom(s => s.ProductType.Name))
     .ForMember(d => d.CategoryName, o => o.MapFrom(s => s.Category.Name))
-    .ForMember(d => d.PictureUrl, o => o.MapFrom<PictureUrlResolver>());
+    .ForMember(d => d.PictureUrl, o => o.MapFrom<PictureUrlResolver>()).ReverseMap();
+
             CreateMap<GetProductsQuery, ProductSpecificationParameters>();
 
+            CreateMap<ProductToCreateDto, Product>()
+    .ReverseMap();
 
+            CreateMap<ProductToEditDto, Product>()
+.ReverseMap();
         }
     }
 }

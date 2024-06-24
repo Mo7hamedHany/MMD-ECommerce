@@ -1,10 +1,5 @@
 ﻿using MMD_ECommerce.Data.Models.Products;
 using MMD_ECommerce.Infrastructure.Specifications.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Infrastructure.Specifications
 {
@@ -55,6 +50,15 @@ namespace MMD_ECommerce.Infrastructure.Specifications
         {
             IncludeExpressions.Add(product => product.ProductType);
             IncludeExpressions.Add(product => product.ProductBrand);
+            IncludeExpressions.Add(product => product.Category);
+        }
+
+        public ProductSpecifications(string email)
+    : base(product => product.MerchantEmail == email)
+        {
+            IncludeExpressions.Add(product => product.ProductType);
+            IncludeExpressions.Add(product => product.ProductBrand);
+            IncludeExpressions.Add(product => product.Category);
         }
     }
 }

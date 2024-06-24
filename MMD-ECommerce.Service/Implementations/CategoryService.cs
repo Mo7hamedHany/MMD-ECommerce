@@ -47,7 +47,6 @@ namespace MMD_ECommerce.Service.Implementations
                 return "Category not found";
             }
 
-            // Detach the existing tracked entity
             _unitOfWork.Repository<Category, int>().Detach(existingCategory);
 
             category.UpdatedAt = DateTime.Now;

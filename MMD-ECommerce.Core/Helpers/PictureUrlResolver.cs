@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Configuration;
-using MMD_ECommerce.Core.DTOs;
+using MMD_ECommerce.Core.DTOs.Product;
 using MMD_ECommerce.Data.Models.Products;
 using System;
 using System.Collections.Generic;

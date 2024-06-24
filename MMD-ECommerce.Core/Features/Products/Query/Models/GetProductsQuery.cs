@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using MMD_ECommerce.Core.DTOs;
 using MMD_ECommerce.Core.DTOs.Base;
+using MMD_ECommerce.Core.DTOs.Product;
 using MMD_ECommerce.Infrastructure.Specifications.Products;
 using System;
 using System.Collections.Generic;
