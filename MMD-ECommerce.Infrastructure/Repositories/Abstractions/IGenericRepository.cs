@@ -1,10 +1,5 @@
 ﻿using MMD_ECommerce.Data.Bases;
 using MMD_ECommerce.Infrastructure.Specifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Infrastructure.Repositories.Abstractions
 {
@@ -25,5 +20,8 @@ namespace MMD_ECommerce.Infrastructure.Repositories.Abstractions
         void Delete(TEntity entity);
 
         void Update(TEntity entity);
+
+        void Detach(TEntity entity); // Add this method
+        IQueryable<TEntity> AsNoTracking();
     }
 }

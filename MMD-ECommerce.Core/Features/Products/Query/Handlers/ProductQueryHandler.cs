@@ -25,7 +25,6 @@ namespace MMD_ECommerce.Core.Features.Products.Query.Handlers
 
         public async Task<PaginatedResultDto<ProductToReturnDto>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
         {
-            var parameters = new ProductSpecificationParameters();
             
             var SpecsMapping = _mapper.Map<ProductSpecificationParameters>(request);
             

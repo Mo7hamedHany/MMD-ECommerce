@@ -4,13 +4,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MMD_ECommerce.API.Extensions;
 using MMD_ECommerce.Core;
+using MMD_ECommerce.Core.Middleware;
 using MMD_ECommerce.Data.Models.Users;
 using MMD_ECommerce.Infrastructure;
 using MMD_ECommerce.Infrastructure.Data.Contexts;
 using MMD_ECommerce.Service;
-using System;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MMD_ECommerce.API
 {
@@ -62,9 +61,11 @@ namespace MMD_ECommerce.API
                 app.UseSwaggerUI();
             }
 
+            app.UseMiddleware<ErrorHandlerMiddleware>();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseAuthentication(); 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();

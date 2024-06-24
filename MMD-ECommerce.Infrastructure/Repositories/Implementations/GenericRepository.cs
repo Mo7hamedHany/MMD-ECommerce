@@ -3,11 +3,6 @@ using MMD_ECommerce.Data.Bases;
 using MMD_ECommerce.Infrastructure.Data.Contexts;
 using MMD_ECommerce.Infrastructure.Repositories.Abstractions;
 using MMD_ECommerce.Infrastructure.Specifications;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Infrastructure.Repositories.Implementations
 {
@@ -21,7 +16,19 @@ namespace MMD_ECommerce.Infrastructure.Repositories.Implementations
         }
         public async Task AddAsync(TEntity entity) => await _context.Set<TEntity>().AddAsync(entity);
 
+        public IQueryable<TEntity> AsNoTracking()
+            => _context.Set<TEntity>().AsNoTracking();
+
         public void Delete(TEntity entity) => _context.Set<TEntity>().Remove(entity);
+
+        public void Detach(TEntity entity)
+        {
+            var entry = _context.Entry(entity);
+            if (entry != null)
+            {
+                entry.State = EntityState.Detached;
+            }
+        }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync() => await _context.Set<TEntity>().ToListAsync();
 
