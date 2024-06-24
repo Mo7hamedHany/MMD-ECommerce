@@ -30,7 +30,7 @@ namespace MMD_ECommerce.Core.Features.Products.Query.Handlers
             
             var products = await _productService.GetProductsWithSpecs(SpecsMapping);
             var mappedProducts = _mapper.Map<IEnumerable<ProductToReturnDto>>(products);
-            /**/
+
             return new PaginatedResultDto<ProductToReturnDto>()
             {
                 Data = mappedProducts,

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Data.Models.Products
 {
-    public class Product : ModelKey<int>, IBase
+    public class Product : ModelKey<int>, ITimeTrackEntity
     {
         public string Name { get; set; }
         public string Description { get; set; }

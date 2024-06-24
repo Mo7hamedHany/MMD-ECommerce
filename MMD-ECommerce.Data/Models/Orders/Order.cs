@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Data.Models.Orders
 {
-    public class Order : ModelKey<Guid>, IBase
+    public class Order : ModelKey<Guid>, ITimeTrackEntity
     {
         public string BuyerEmail { get; set; }
 

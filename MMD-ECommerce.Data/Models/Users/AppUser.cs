@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Data.Models.Users
 {
-    public class AppUser : IdentityUser, IBase
+    public class AppUser : IdentityUser, ITimeTrackEntity
     {
         public Address Address { get; set; }
         public DateTime CreatedAt { get; set; }

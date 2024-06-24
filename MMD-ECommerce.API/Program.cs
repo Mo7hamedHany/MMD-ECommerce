@@ -8,9 +8,10 @@ using MMD_ECommerce.Core.Middleware;
 using MMD_ECommerce.Data.Models.Users;
 using MMD_ECommerce.Infrastructure;
 using MMD_ECommerce.Infrastructure.Data.Contexts;
+using MMD_ECommerce.Logger.Service;
 using MMD_ECommerce.Service;
 using System.Text;
-
+using MMD_ECommerce.Logger.Service.Migrator;
 namespace MMD_ECommerce.API
 {
     public class Program
@@ -27,7 +28,7 @@ namespace MMD_ECommerce.API
             builder.Services.AddDbContext<MMDDataContext>(opt =>
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddInfrastructureDependencies().AddServiceDependencies().AddCoreDependencies();
+            builder.Services.AddInfrastructureDependencies().AddServiceDependencies().AddCoreDependencies().ConfigureServices(builder.Configuration);
 
             builder.Services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<MMDDataContext>()
@@ -54,6 +55,8 @@ namespace MMD_ECommerce.API
 
             var app = builder.Build();
 
+            app.MigrateLoggerDatabase( );
+            
             await DbInitializer.InitializeDbAsync(app);
 
             // Configure the HTTP request pipeline.

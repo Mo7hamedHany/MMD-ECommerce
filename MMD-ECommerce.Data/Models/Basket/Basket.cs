@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Data.Models.Basket
 {
-    public class Basket : IBase
+    public class Basket : ITimeTrackEntity
     {
         public string Id { get; set; }
 
@@ -25,7 +25,5 @@ namespace MMD_ECommerce.Data.Models.Basket
         public DateTime UpdatedAt { get; set; }
 
         public List<BasketItem> BasketItems { get; set; } = new List<BasketItem>();
-
-
-    }
+        }
 }
