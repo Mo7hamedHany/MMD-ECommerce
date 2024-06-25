@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MMD-ECommerce.Core\MMD-ECommerce.Core.csproj" />
+    <ProjectReference Include="..\MMD-ECommerce.Logger.Service\MMD-ECommerce.Logger.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>

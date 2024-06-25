@@ -180,7 +180,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DeliveryMethods");
+                    b.ToTable("DeliveryMethods", (string)null);
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Order.OrderItem", b =>
@@ -202,7 +202,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Orders.Order", b =>
@@ -244,7 +244,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.HasIndex("DeliveryMethodId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Products.Category", b =>
@@ -271,7 +271,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Products.Product", b =>
@@ -322,7 +322,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Products.ProductBrand", b =>
@@ -345,7 +345,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductBrand");
+                    b.ToTable("ProductBrand", (string)null);
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Products.ProductType", b =>
@@ -368,7 +368,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductType");
+                    b.ToTable("ProductType", (string)null);
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Users.Address", b =>
@@ -408,7 +408,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
                     b.HasIndex("AppUserId")
                         .IsUnique();
 
-                    b.ToTable("Address");
+                    b.ToTable("Address", (string)null);
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Users.AppUser", b =>
@@ -540,7 +540,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.OwnsOne("MMD_ECommerce.Data.Models.Order.OrderItemProduct", "orderItemProduct", b1 =>
+                    b.OwnsOne("MMD_ECommerce.Data.Models.Order.OrderItem.orderItemProduct#MMD_ECommerce.Data.Models.Order.OrderItemProduct", "orderItemProduct", b1 =>
                         {
                             b1.Property<Guid>("OrderItemId")
                                 .HasColumnType("uniqueidentifier");
@@ -558,7 +558,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                             b1.HasKey("OrderItemId");
 
-                            b1.ToTable("OrderItems");
+                            b1.ToTable("OrderItems", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderItemId");
@@ -574,7 +574,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("DeliveryMethodId");
 
-                    b.OwnsOne("MMD_ECommerce.Data.Models.Order.Order.ShippingAddress", "ShippingAddress", b1 =>
+                    b.OwnsOne("MMD_ECommerce.Data.Models.Orders.Order.ShippingAddress#MMD_ECommerce.Data.Models.Order.Order.ShippingAddress", "ShippingAddress", b1 =>
                         {
                             b1.Property<Guid>("OrderId")
                                 .HasColumnType("uniqueidentifier");
@@ -601,7 +601,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                             b1.HasKey("OrderId");
 
-                            b1.ToTable("Orders");
+                            b1.ToTable("Orders", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderId");

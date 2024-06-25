@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Data.Bases
 {
-    public interface IBase
+    public interface ITimeTrackEntity
     {
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
