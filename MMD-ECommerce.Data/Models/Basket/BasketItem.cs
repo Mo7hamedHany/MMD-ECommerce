@@ -20,5 +20,7 @@ namespace MMD_ECommerce.Data.Models.Basket
         public string TypeName { get; set; }
 
         public string BrandName { get; set; }
+
+        public string CategoryName { get; set; }
     }
 }

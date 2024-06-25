@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MMD_ECommerce.API.Bases;
 using MMD_ECommerce.Core.Features.Account.Command.Models;
 using MMD_ECommerce.Core.Features.Account.Query.Models;
@@ -20,15 +21,18 @@ namespace MMD_ECommerce.API.Controllers
             => NewResult(await Mediator.Send(command));
 
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult> CreateMerchant([FromBody] CreateMerchantCommand command)
             => NewResult(await Mediator.Send(command));
 
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         public async Task<ActionResult> DeleteUser([FromBody] DeleteUserCommand command)
             => NewResult(await Mediator.Send(command));
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult> GetUsers([FromQuery] string role)
         {

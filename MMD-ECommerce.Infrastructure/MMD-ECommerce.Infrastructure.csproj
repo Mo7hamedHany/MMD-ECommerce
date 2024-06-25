@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="StackExchange.Redis" Version="2.7.33" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MMD-ECommerce.Data\MMD-ECommerce.Data.csproj" />
   </ItemGroup>
 

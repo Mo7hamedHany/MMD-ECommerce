@@ -1,19 +1,25 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using MMD_ECommerce.Infrastructure.Repositories.Abstractions;
 using MMD_ECommerce.Infrastructure.Repositories.Implementations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using StackExchange.Redis;
 
 namespace MMD_ECommerce.Infrastructure
 {
     public static class ModuleInfrastructureDependencies
     {
-        public static IServiceCollection AddInfrastructureDependencies(this IServiceCollection services)
+        public static IServiceCollection AddInfrastructureDependencies(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddSingleton<IConnectionMultiplexer>(options =>
+            {
+                var config = ConfigurationOptions.Parse(configuration.GetConnectionString("RedisConnection"));
+
+                return ConnectionMultiplexer.Connect(config);
+            });
+
+            services.AddScoped<IBasketRepository, BasketRepository>();
 
 
             return services;
