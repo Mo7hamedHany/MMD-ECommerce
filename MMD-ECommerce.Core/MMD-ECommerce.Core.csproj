@@ -8,9 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\Orders\Command\Validators\**" />
+    <EmbeddedResource Remove="Features\Orders\Command\Validators\**" />
+    <None Remove="Features\Orders\Command\Validators\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Features\Basket\Command\Validations\" />
-    <Folder Include="Features\Orders\Command\Validators\" />
-    <Folder Include="Features\Orders\Query\" />
   </ItemGroup>
 
   <ItemGroup>

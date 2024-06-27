@@ -1,4 +1,5 @@
-﻿using MMD_ECommerce.Data.Models.Orders;
+﻿using MMD_ECommerce.Data.Models.Order;
+using MMD_ECommerce.Data.Models.Orders;
 
 namespace MMD_ECommerce.Infrastructure.Specifications.Orders
 {
@@ -9,6 +10,7 @@ namespace MMD_ECommerce.Infrastructure.Specifications.Orders
         {
             IncludeExpressions.Add(order => order.DeliveryMethod);
             IncludeExpressions.Add(order => order.OrderItems);
+            AddThenInclude(order => order.OrderItems, orderItem => ((OrderItem)orderItem).Product);
 
         }
 
@@ -17,7 +19,24 @@ namespace MMD_ECommerce.Infrastructure.Specifications.Orders
         {
             IncludeExpressions.Add(order => order.DeliveryMethod);
             IncludeExpressions.Add(order => order.OrderItems);
+            AddThenInclude(order => order.OrderItems, orderItem => ((OrderItem)orderItem).Product);
 
+        }
+
+        public OrderSpecifications(PaymentStatus status)
+    : base(order => order.paymentStatus == status)
+        {
+            IncludeExpressions.Add(order => order.DeliveryMethod);
+            IncludeExpressions.Add(order => order.OrderItems);
+            AddThenInclude(order => order.OrderItems, orderItem => ((OrderItem)orderItem).Product);
+
+        }
+
+        public OrderSpecifications() : base(null)
+        {
+            IncludeExpressions.Add(order => order.DeliveryMethod);
+            IncludeExpressions.Add(order => order.OrderItems);
+            AddThenInclude(order => order.OrderItems, orderItem => ((OrderItem)orderItem).Product);
         }
     }
 }

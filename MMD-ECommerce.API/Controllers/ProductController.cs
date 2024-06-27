@@ -55,10 +55,20 @@ namespace MMD_ECommerce.API.Controllers
             return NewResult(await Mediator.Send(command));
         }
 
+        [Authorize(Roles = "Admin,Merchant")]
         [HttpDelete]
         public async Task<ActionResult> Delete([FromQuery] int id)
         {
             return NewResult(await Mediator.Send(new DeleteProductCommand(id)));
+        }
+
+        [Authorize(Roles = "Merchant")]
+        [HttpGet]
+        public async Task<ActionResult> AmountOfMerchantSoldProducts()
+        {
+            var merchantEmail = User.FindFirstValue(ClaimTypes.Email);
+
+            return Ok(await Mediator.Send(new GetAmountOfMerchantSolds(merchantEmail)));
         }
     }
 }

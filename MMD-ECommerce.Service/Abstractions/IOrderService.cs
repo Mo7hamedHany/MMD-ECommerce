@@ -7,5 +7,7 @@ namespace MMD_ECommerce.Service.Abstractions
     {
         Task<string> CreateOrderAsync(Order order);
         public Task<IEnumerable<DeliveryMethods>> GetDeliveryMethodsAsync();
+        Task<IEnumerable<Order>> GetOrdersForUser(string email);
+        Task<IEnumerable<Order>> GetAllSystemOrders();
     }
 }

@@ -12,7 +12,8 @@ namespace MMD_ECommerce.Core.Features.Products.Query.Handlers
     public class ProductQueryHandler : ResponseHandler,
         IRequestHandler<GetProductsQuery, PaginatedResultDto<ProductToReturnDto>>,
         IRequestHandler<GetProductByIdQuery, Response<ProductToReturnDto>>,
-        IRequestHandler<GetProductsForMerchantQuery, Response<IEnumerable<ProductToReturnDto>>>
+        IRequestHandler<GetProductsForMerchantQuery, Response<IEnumerable<ProductToReturnDto>>>,
+        IRequestHandler<GetAmountOfMerchantSolds, Response<string>>
 
     {
         private readonly IProductService _productService;
@@ -65,6 +66,15 @@ namespace MMD_ECommerce.Core.Features.Products.Query.Handlers
             var mappedProducts = _mapper.Map<IEnumerable<ProductToReturnDto>>(products);
 
             return Success(mappedProducts);
+        }
+
+        public async Task<Response<string>> Handle(GetAmountOfMerchantSolds request, CancellationToken cancellationToken)
+        {
+            if (request is null) return BadRequest<string>();
+
+            var amount = await _productService.MerchantSoldProducts(request.Email);
+
+            return Success($"The Total Amount of your sold products is : {amount} Dollars");
         }
     }
 }

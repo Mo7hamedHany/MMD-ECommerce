@@ -23,10 +23,13 @@ namespace MMD_ECommerce.Service.Implementations
 
         public async Task<string> CreateOrderAsync(Order order)
         {
-            if (order == null) return "OrderIsNull";
+            if (order == null)
+            {
+                return "OrderIsNull";
+            }
 
             var basket = await _basketService.GetBasketAsync(order.BasketId);
-            if (basket == null) return "BasketNotFound";
+            // if (basket == null) return "BasketNotFound";
 
             var orderItems = new List<OrderItem>();
             foreach (var item in basket.BasketItems)
@@ -34,16 +37,9 @@ namespace MMD_ECommerce.Service.Implementations
                 var product = await _unitOfWork.Repository<Product, int>().GetAsync(item.ProductId);
                 if (product == null) continue;
 
-                var productItem = new OrderItemProduct
-                {
-                    ProductId = product.Id,
-                    ProductName = product.Name,
-                    PictureUrl = product.PictureUrl,
-                };
-
                 var orderItem = new OrderItem
                 {
-                    orderItemProduct = productItem,
+                    Product = product,
                     Quantity = item.Quantity,
                     Price = product.Price,
                 };
@@ -88,7 +84,20 @@ namespace MMD_ECommerce.Service.Implementations
             return "Success";
         }
 
+        public async Task<IEnumerable<Order>> GetAllSystemOrders()
+            => await _unitOfWork.Repository<Order, Guid>().GetAllWithSpecsAsync(new OrderSpecifications());
+
         public async Task<IEnumerable<DeliveryMethods>> GetDeliveryMethodsAsync()
     => await _unitOfWork.Repository<DeliveryMethods, int>().GetAllAsync();
+
+        public async Task<IEnumerable<Order>> GetOrdersForUser(string email)
+        {
+            var spec = new OrderSpecifications(email);
+
+            var orders = await _unitOfWork.Repository<Order, Guid>().GetAllWithSpecsAsync(spec);
+            if (!orders.Any()) throw new Exception($"There're no orders yet for this email: {email}");
+
+            return orders;
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace MMD_ECommerce.Core.Helpers
 
         public string Resolve(OrderItem source, OrderItemDto destination, string destMember, ResolutionContext context)
         {
-            return !string.IsNullOrEmpty(source.orderItemProduct.PictureUrl) ? $"{_configuration["BaseUrl"]}{source.orderItemProduct.PictureUrl}" : string.Empty;
+            return !string.IsNullOrEmpty(source.Product.PictureUrl) ? $"{_configuration["BaseUrl"]}{source.Product.PictureUrl}" : string.Empty;
         }
     }
 }

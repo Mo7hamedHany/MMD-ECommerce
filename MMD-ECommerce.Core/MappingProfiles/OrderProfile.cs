@@ -22,9 +22,6 @@ namespace MMD_ECommerce.Core.MappingProfiles
                 .ReverseMap();
 
             CreateMap<OrderItem, OrderItemDto>()
-                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.orderItemProduct.ProductId))
-                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.orderItemProduct.ProductName))
-                .ForMember(dest => dest.PictureUrl, opt => opt.MapFrom(src => src.orderItemProduct.PictureUrl))
                 .ForMember(dest => dest.PictureUrl, opt => opt.MapFrom<OrderItemResolver>()).ReverseMap();
         }
     }

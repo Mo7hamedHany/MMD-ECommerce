@@ -1,8 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MMD_ECommerce.Data.Models;
+using MMD_ECommerce.Data.Models.Order;
+using MMD_ECommerce.Data.Models.Orders;
 using MMD_ECommerce.Data.Models.Products;
 using MMD_ECommerce.Infrastructure.Repositories.Abstractions;
 using MMD_ECommerce.Infrastructure.Specifications;
+using MMD_ECommerce.Infrastructure.Specifications.Orders;
 using MMD_ECommerce.Infrastructure.Specifications.Products;
 using MMD_ECommerce.Service.Abstractions;
 
@@ -113,6 +116,30 @@ namespace MMD_ECommerce.Service.Implementations
             if (types is null) return false;
 
             return true;
+        }
+
+        public async Task<decimal> MerchantSoldProducts(string email)
+        {
+            decimal totalSales = 0;
+
+            var productSpecs = new ProductSpecifications(email);
+            var merchantProducts = await _unitOfWork.Repository<Product, int>().GetAllWithSpecsAsync(productSpecs);
+
+            var orderSpecs = new OrderSpecifications(PaymentStatus.Received);
+            var systemOrders = await _unitOfWork.Repository<Order, Guid>().GetAllWithSpecsAsync(orderSpecs);
+
+            foreach (var order in systemOrders)
+            {
+                foreach (var item in order.OrderItems)
+                {
+                    if (merchantProducts.Any(p => p.Id == item.Product.Id))
+                    {
+                        totalSales += item.Price * item.Quantity;
+                    }
+                }
+            }
+
+            return totalSales;
         }
     }
 }
