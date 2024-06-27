@@ -1,10 +1,5 @@
 ﻿using MMD_ECommerce.Data.Bases;
-using MMD_ECommerce.Data.Models.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MMD_ECommerce.Data.Models.Orders;
 
 namespace MMD_ECommerce.Data.Models.Products
 {
@@ -22,5 +17,7 @@ namespace MMD_ECommerce.Data.Models.Products
         public int CategoryId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public string? MerchantEmail { get; set; }
+        public virtual List<OrderItem> OrderItems { get; set; }
     }
 }

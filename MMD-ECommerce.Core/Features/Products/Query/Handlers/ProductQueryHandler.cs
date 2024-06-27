@@ -1,18 +1,20 @@
 ﻿using AutoMapper;
 using MediatR;
+using MMD_ECommerce.Core.Bases;
 using MMD_ECommerce.Core.DTOs;
+using MMD_ECommerce.Core.DTOs.Product;
 using MMD_ECommerce.Core.Features.Products.Query.Models;
 using MMD_ECommerce.Infrastructure.Specifications.Products;
 using MMD_ECommerce.Service.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Core.Features.Products.Query.Handlers
 {
-    public class ProductQueryHandler : IRequestHandler<GetProductsQuery, PaginatedResultDto<ProductToReturnDto>>
+    public class ProductQueryHandler : ResponseHandler,
+        IRequestHandler<GetProductsQuery, PaginatedResultDto<ProductToReturnDto>>,
+        IRequestHandler<GetProductByIdQuery, Response<ProductToReturnDto>>,
+        IRequestHandler<GetProductsForMerchantQuery, Response<IEnumerable<ProductToReturnDto>>>,
+        IRequestHandler<GetAmountOfMerchantSolds, string>
+
     {
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
@@ -25,21 +27,60 @@ namespace MMD_ECommerce.Core.Features.Products.Query.Handlers
 
         public async Task<PaginatedResultDto<ProductToReturnDto>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
         {
-            var parameters = new ProductSpecificationParameters();
-            
+
             var SpecsMapping = _mapper.Map<ProductSpecificationParameters>(request);
-            
+
             var products = await _productService.GetProductsWithSpecs(SpecsMapping);
             var mappedProducts = _mapper.Map<IEnumerable<ProductToReturnDto>>(products);
+
             /**/
             return new PaginatedResultDto<ProductToReturnDto>()
             {
                 Data = mappedProducts,
                 PageIndex = SpecsMapping.PageIndex,
                 PageSize = SpecsMapping.PageSize,
-                TotalCount = mappedProducts.Count()
+                TotalCount = await _productService.GetProductsCount()
 
             };
+        }
+
+        public async Task<Response<ProductToReturnDto>> Handle(GetProductByIdQuery request, CancellationToken cancellationToken)
+        {
+
+            if (request == null) return BadRequest<ProductToReturnDto>();
+            var product = await _productService.GetProduct(request.Id);
+            if (product == null) return NotFound<ProductToReturnDto>("Product is not found");
+
+            var mappedProduct = _mapper.Map<ProductToReturnDto>(product);
+
+            return Success(mappedProduct);
+        }
+
+        public async Task<Response<IEnumerable<ProductToReturnDto>>> Handle(GetProductsForMerchantQuery request, CancellationToken cancellationToken)
+        {
+            if (request == null) return BadRequest<IEnumerable<ProductToReturnDto>>();
+
+            var products = await _productService.GetProductsOfMerchant(request.Email);
+
+            if (products == null) return NotFound<IEnumerable<ProductToReturnDto>>("No products found for this merchant");
+
+            var mappedProducts = _mapper.Map<IEnumerable<ProductToReturnDto>>(products);
+
+            return Success(mappedProducts);
+        }
+
+        public async Task<Response<decimal>> Handle(GetAmountOfMerchantSolds request, CancellationToken cancellationToken)
+        {
+            var products = await _productService.MerchantSoldProducts(request.Email);
+
+            return Success(products);
+        }
+
+        async Task<string> IRequestHandler<GetAmountOfMerchantSolds, string>.Handle(GetAmountOfMerchantSolds request, CancellationToken cancellationToken)
+        {
+            var amount = await _productService.MerchantSoldProducts(request.Email);
+
+            return $"Total Amount of your sold products is : {amount} Dollars";
         }
     }
 }
