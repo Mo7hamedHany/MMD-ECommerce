@@ -2,20 +2,19 @@
 
 using AutoMapper;
 using MediatR;
-using MMD_ECommerce.Core.DTOs;
+using MMD_ECommerce.Core.Bases;
+using MMD_ECommerce.Core.DTOs.Categories;
 using MMD_ECommerce.Core.Features.Category.Query.Models;
 using MMD_ECommerce.Service.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Core.Features.Category.Query.Handlers
 {
-    public class CategoryQueryHandler : IRequestHandler<GetCategoriesQuery, IEnumerable<CategoryDto>>
+    public class CategoryQueryHandler : ResponseHandler,
+        IRequestHandler<GetCategoriesQuery, IEnumerable<CategoryDto>>,
+        IRequestHandler<GetCategoryByIdQuery, Response<CategoryDto>>
+
     {
-        private readonly  ICategoryService _categoryService;
+        private readonly ICategoryService _categoryService;
         private readonly IMapper _mapper;
 
         public CategoryQueryHandler(ICategoryService categoryService, IMapper mapper)
@@ -31,6 +30,17 @@ namespace MMD_ECommerce.Core.Features.Category.Query.Handlers
             var mappedCategories = _mapper.Map<IEnumerable<CategoryDto>>(categories);
 
             return mappedCategories;
+        }
+
+        public async Task<Response<CategoryDto>> Handle(GetCategoryByIdQuery request, CancellationToken cancellationToken)
+        {
+            var category = await _categoryService.GetCategoryById(request.Id);
+
+            if (category == null) return NotFound<CategoryDto>("Category Not Found");
+
+            var mappedCategory = _mapper.Map<CategoryDto>(category);
+
+            return Success(mappedCategory);
         }
     }
 }

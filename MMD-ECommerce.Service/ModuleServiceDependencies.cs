@@ -17,7 +17,6 @@ namespace MMD_ECommerce.Service
             services.AddScoped<ICashService, CashService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IPaymentService, PaymentService>();
-            services.AddScoped<ICsvExportService, CsvExportService>();
             return services;
         }
     }

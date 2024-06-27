@@ -1,24 +1,24 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using MMD_ECommerce.API.Bases;
+using MMD_ECommerce.Core.Features.Category.Command.Models;
 using MMD_ECommerce.Core.Features.Category.Query.Models;
 
 namespace MMD_ECommerce.API.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class CategoryController : AppControllerBase
     {
-        private readonly IMediator _mediator;
-
-        public CategoryController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
 
         [HttpGet]
         public async Task<ActionResult> GetAllCategories()
+        {
+            return Ok(await Mediator.Send(new GetCategoriesQuery()));
+        }
+
+        [HttpGet("id")]
+        public async Task<ActionResult> GetCategoryById([FromQuery] int id)
         {
             return NewResult(await Mediator.Send(new GetCategoryByIdQuery(id)));
         }

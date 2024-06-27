@@ -1,4 +1,6 @@
-﻿using MMD_ECommerce.Data.Models.Orders;
+﻿using MMD_ECommerce.Data.Models.Order;
+using MMD_ECommerce.Data.Models.Order.Order;
+using MMD_ECommerce.Data.Models.Orders;
 using MMD_ECommerce.Data.Models.Products;
 using MMD_ECommerce.Infrastructure.Repositories.Abstractions;
 using MMD_ECommerce.Infrastructure.Specifications.Orders;
@@ -32,10 +34,16 @@ namespace MMD_ECommerce.Service.Implementations
                 var product = await _unitOfWork.Repository<Product, int>().GetAsync(item.ProductId);
                 if (product == null) continue;
 
+                var productItem = new OrderItemProduct
+                {
+                    ProductId = product.Id,
+                    ProductName = product.Name,
+                    PictureUrl = product.PictureUrl,
+                };
 
                 var orderItem = new OrderItem
                 {
-                    Product = await _unitOfWork.Repository<Product, int>().GetAsync(item.ProductId),
+                    orderItemProduct = productItem,
                     Quantity = item.Quantity,
                     Price = product.Price,
                 };
@@ -61,8 +69,6 @@ namespace MMD_ECommerce.Service.Implementations
                 await _paymentService.CreateOrUpdatePaymentIntentForNewOrder(basket.Id);
             }
 
-
-
             var subTotal = orderItems.Sum(item => item.Price * item.Quantity);
 
             var createdOrder = new Order
@@ -82,19 +88,7 @@ namespace MMD_ECommerce.Service.Implementations
             return "Success";
         }
 
-        public async Task<IEnumerable<Order>> GetAllOrdersAsync(string email)
-        {
-            var spec = new OrderSpecifications(email);
-
-            var orders = await _unitOfWork.Repository<Order, Guid>().GetAllWithSpecsAsync(spec);
-
-            return orders;
-        }
-
         public async Task<IEnumerable<DeliveryMethods>> GetDeliveryMethodsAsync()
     => await _unitOfWork.Repository<DeliveryMethods, int>().GetAllAsync();
-
-        public async Task<IEnumerable<Order>> GetUsersOrdersAsync()
-            => await _unitOfWork.Repository<Order, Guid>().GetAllAsync();
     }
 }

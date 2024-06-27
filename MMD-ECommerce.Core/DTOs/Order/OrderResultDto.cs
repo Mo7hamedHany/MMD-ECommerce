@@ -1,4 +1,4 @@
-﻿using MMD_ECommerce.Data.Models.Orders;
+﻿using MMD_ECommerce.Data.Models.Order;
 
 namespace MMD_ECommerce.Core.DTOs.Order
 {

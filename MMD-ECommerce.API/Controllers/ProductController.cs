@@ -13,7 +13,7 @@ namespace MMD_ECommerce.API.Controllers
     public class ProductController : AppControllerBase
     {
 
-
+        [Authorize]
         [HttpGet]
         [Cash(60)]
         public async Task<ActionResult> GetProducts([FromQuery] GetProductsQuery query)
@@ -23,13 +23,13 @@ namespace MMD_ECommerce.API.Controllers
         }
 
         [HttpGet("id")]
-        public async Task<ActionResult> GetProductById([FromQuery] int id)
+        public async Task<ActionResult> GetProducts([FromQuery] int id)
         {
             var products = await Mediator.Send(new GetProductByIdQuery(id));
             return Ok(products);
         }
 
-        [Authorize(Roles = "Merchant,Admin")]
+        [Authorize(Roles = "Merchant")]
         [HttpGet]
         public async Task<ActionResult> ProductsForMerchant()
         {
@@ -39,15 +39,6 @@ namespace MMD_ECommerce.API.Controllers
         }
 
         [Authorize(Roles = "Merchant")]
-        [HttpGet]
-        public async Task<ActionResult> MerchantPurchasedItems()
-        {
-            var merchantEmail = User.FindFirstValue(ClaimTypes.Email);
-
-            return Ok(await Mediator.Send(new GetAmountOfMerchantSolds(merchantEmail)));
-        }
-
-        [Authorize(Roles = "Merchant,Admin")]
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] CreateProductCommand command)
         {
@@ -57,14 +48,13 @@ namespace MMD_ECommerce.API.Controllers
             return NewResult(await Mediator.Send(command));
         }
 
-        [Authorize(Roles = "Merchant,Admin")]
+        [Authorize(Roles = "Merchant")]
         [HttpPut]
-        public async Task<ActionResult> EditProduct([FromBody] EditProductCommand command)
+        public async Task<ActionResult> EditCategory([FromBody] EditProductCommand command)
         {
             return NewResult(await Mediator.Send(command));
         }
 
-        [Authorize(Roles = "Merchant,Admin")]
         [HttpDelete]
         public async Task<ActionResult> Delete([FromQuery] int id)
         {

@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MMD_ECommerce.Data.Models;
-using MMD_ECommerce.Data.Models.Orders;
 using MMD_ECommerce.Data.Models.Products;
 using MMD_ECommerce.Infrastructure.Repositories.Abstractions;
 using MMD_ECommerce.Infrastructure.Specifications;
-using MMD_ECommerce.Infrastructure.Specifications.Orders;
 using MMD_ECommerce.Infrastructure.Specifications.Products;
 using MMD_ECommerce.Service.Abstractions;
 
@@ -94,13 +92,6 @@ namespace MMD_ECommerce.Service.Implementations
             return products;
         }
 
-        public async Task<int> GetProductsCount()
-        {
-            var products = await _unitOfWork.Repository<Product, int>().GetAllAsync();
-
-            return products.Count();
-        }
-
         public async Task<IEnumerable<Product>> GetProductsOfMerchant(string email)
         {
             var specs = new ProductSpecifications(email);
@@ -114,35 +105,6 @@ namespace MMD_ECommerce.Service.Implementations
             var specs = new ProductSpecifications(parameters);
             return await _unitOfWork.Repository<Product, int>().GetAllWithSpecsAsync(specs);
         }
-
-        public async Task<decimal> MerchantSoldProducts(string email)
-        {
-            decimal totalSales = 0;
-
-            var productSpecs = new ProductSpecifications(email);
-            var merchantProducts = await _unitOfWork.Repository<Product, int>().GetAllWithSpecsAsync(productSpecs);
-
-            var orderSpecs = new OrderSpecifications(PaymentStatus.Received);
-            var systemOrders = await _unitOfWork.Repository<Order, Guid>().GetAllWithSpecsAsync(orderSpecs);
-
-            foreach (var order in systemOrders)
-            {
-
-                foreach (var item in order.OrderItems)
-                {
-
-                    if (merchantProducts.Any(p => p.Id == item.Product.Id))
-                    {
-
-                        totalSales += item.Price * item.Quantity;
-                    }
-                }
-
-            }
-
-            return totalSales;
-        }
-
 
         public async Task<bool> TypeExists(int id)
         {

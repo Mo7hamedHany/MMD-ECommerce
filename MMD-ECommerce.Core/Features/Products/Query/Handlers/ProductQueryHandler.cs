@@ -12,8 +12,7 @@ namespace MMD_ECommerce.Core.Features.Products.Query.Handlers
     public class ProductQueryHandler : ResponseHandler,
         IRequestHandler<GetProductsQuery, PaginatedResultDto<ProductToReturnDto>>,
         IRequestHandler<GetProductByIdQuery, Response<ProductToReturnDto>>,
-        IRequestHandler<GetProductsForMerchantQuery, Response<IEnumerable<ProductToReturnDto>>>,
-        IRequestHandler<GetAmountOfMerchantSolds, string>
+        IRequestHandler<GetProductsForMerchantQuery, Response<IEnumerable<ProductToReturnDto>>>
 
     {
         private readonly IProductService _productService;
@@ -33,13 +32,12 @@ namespace MMD_ECommerce.Core.Features.Products.Query.Handlers
             var products = await _productService.GetProductsWithSpecs(SpecsMapping);
             var mappedProducts = _mapper.Map<IEnumerable<ProductToReturnDto>>(products);
 
-            /**/
             return new PaginatedResultDto<ProductToReturnDto>()
             {
                 Data = mappedProducts,
                 PageIndex = SpecsMapping.PageIndex,
                 PageSize = SpecsMapping.PageSize,
-                TotalCount = await _productService.GetProductsCount()
+                TotalCount = mappedProducts.Count()
 
             };
         }
@@ -67,20 +65,6 @@ namespace MMD_ECommerce.Core.Features.Products.Query.Handlers
             var mappedProducts = _mapper.Map<IEnumerable<ProductToReturnDto>>(products);
 
             return Success(mappedProducts);
-        }
-
-        public async Task<Response<decimal>> Handle(GetAmountOfMerchantSolds request, CancellationToken cancellationToken)
-        {
-            var products = await _productService.MerchantSoldProducts(request.Email);
-
-            return Success(products);
-        }
-
-        async Task<string> IRequestHandler<GetAmountOfMerchantSolds, string>.Handle(GetAmountOfMerchantSolds request, CancellationToken cancellationToken)
-        {
-            var amount = await _productService.MerchantSoldProducts(request.Email);
-
-            return $"Total Amount of your sold products is : {amount} Dollars";
         }
     }
 }

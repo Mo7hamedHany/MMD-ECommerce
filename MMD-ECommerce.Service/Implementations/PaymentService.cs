@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using MMD_ECommerce.Data.Models.Basket;
+using MMD_ECommerce.Data.Models.Order;
+using MMD_ECommerce.Data.Models.Order.Order;
 using MMD_ECommerce.Data.Models.Orders;
-using MMD_ECommerce.Data.Models.Payments;
 using MMD_ECommerce.Infrastructure.Repositories.Abstractions;
 using MMD_ECommerce.Infrastructure.Specifications.Orders;
 using MMD_ECommerce.Service.Abstractions;
@@ -16,36 +16,12 @@ namespace MMD_ECommerce.Service.Implementations
         private readonly IBasketService _basketService;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _config;
-        private readonly StripeSettings _stripeSettings;
 
-        public PaymentService(IBasketService basketService, IUnitOfWork unitOfWork, IConfiguration config, IOptions<StripeSettings> stripeSettings)
+        public PaymentService(IBasketService basketService, IUnitOfWork unitOfWork, IConfiguration config)
         {
             _basketService = basketService;
             _unitOfWork = unitOfWork;
             _config = config;
-            _stripeSettings = stripeSettings.Value;
-        }
-
-        public async Task<string> AddPayment(string paymentIntentId)
-        {
-            var spec = new OrderWithPaymentIntentIdSpecification(paymentIntentId);
-            var order = await _unitOfWork.Repository<Order, Guid>().GetWithSpecsAsync(spec);
-            if (order is null) return "NotFound";
-
-            var payment = new Payment
-            {
-                Amount = order.Total(),
-                PaymentStatus = order.paymentStatus,
-                UpdatedAt = DateTime.UtcNow,
-                OrderId = order.Id
-            };
-
-            await _unitOfWork.Repository<Payment, Guid>().AddAsync(payment);
-            await _unitOfWork.CompleteAsync();
-
-            return "Success";
-
-            //throw new NotImplementedException();
         }
 
         public async Task<Basket> CreateOrUpdatePaymentIntentForExistingOrder(Basket basket)
@@ -70,12 +46,9 @@ namespace MMD_ECommerce.Service.Implementations
                     Currency = "USD",
                     PaymentMethodTypes = new List<string> { "card" }
                 };
-
-
                 paymentIntent = await service.CreateAsync(options);
                 basket.PaymentIntentId = paymentIntent.Id;
                 basket.ClientSecret = paymentIntent.ClientSecret;
-
             }
             else
             {
@@ -115,8 +88,6 @@ namespace MMD_ECommerce.Service.Implementations
                     Currency = "USD",
                     PaymentMethodTypes = new List<string> { "card" }
                 };
-
-
                 paymentIntent = await service.CreateAsync(options);
                 basket.PaymentIntentId = paymentIntent.Id;
                 basket.ClientSecret = paymentIntent.ClientSecret;
@@ -161,35 +132,5 @@ namespace MMD_ECommerce.Service.Implementations
 
             return order;
         }
-
-        //public async Task<Order> ConfirmPaymentAsync(string clientSecret, string paymentIntentId, string paymentMethodId)
-        //{
-        //    StripeConfiguration.ApiKey = _stripeSettings.SecretKey;
-
-        //    var service = new PaymentIntentService();
-
-        //    // Update the PaymentIntent with the payment method
-        //    var updateOptions = new PaymentIntentUpdateOptions
-        //    {
-        //        PaymentMethod = paymentMethodId
-        //    };
-        //    await service.UpdateAsync(paymentIntentId, updateOptions);
-
-        //    // Confirm the PaymentIntent
-        //    var confirmOptions = new PaymentIntentConfirmOptions
-        //    {
-        //        PaymentMethod = paymentMethodId
-        //    };
-        //    var paymentIntent = await service.ConfirmAsync(paymentIntentId, confirmOptions);
-
-        //    if (paymentIntent.Status == "succeeded")
-        //    {
-        //        return await UpdatePaymentStatusSuceeded(paymentIntentId);
-        //    }
-        //    else
-        //    {
-        //        return await UpdatePaymentStatusFailed(paymentIntentId);
-        //    }
-        //}
     }
 }

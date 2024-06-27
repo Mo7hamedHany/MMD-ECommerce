@@ -155,7 +155,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("MMD_ECommerce.Data.Models.Orders.DeliveryMethods", b =>
+            modelBuilder.Entity("MMD_ECommerce.Data.Models.Order.Order.DeliveryMethods", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -180,7 +180,29 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DeliveryMethods");
+                    b.ToTable("DeliveryMethods", (string)null);
+                });
+
+            modelBuilder.Entity("MMD_ECommerce.Data.Models.Order.OrderItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,3)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Orders.Order", b =>
@@ -222,65 +244,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.HasIndex("DeliveryMethodId");
 
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("MMD_ECommerce.Data.Models.Orders.OrderItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,3)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("productID")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("productID");
-
-                    b.ToTable("OrderItems");
-                });
-
-            modelBuilder.Entity("MMD_ECommerce.Data.Models.Payments.Payment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("PaymentIntentId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PaymentStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId")
-                        .IsUnique();
-
-                    b.ToTable("Payments");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Products.Category", b =>
@@ -307,7 +271,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Products.Product", b =>
@@ -329,6 +293,9 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MerchantEmail")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -355,7 +322,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Products.ProductBrand", b =>
@@ -378,7 +345,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductBrand");
+                    b.ToTable("ProductBrand", (string)null);
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Products.ProductType", b =>
@@ -401,7 +368,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ProductType");
+                    b.ToTable("ProductType", (string)null);
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Users.Address", b =>
@@ -441,7 +408,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
                     b.HasIndex("AppUserId")
                         .IsUnique();
 
-                    b.ToTable("Address");
+                    b.ToTable("Address", (string)null);
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Users.AppUser", b =>
@@ -566,13 +533,48 @@ namespace MMD_ECommerce.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MMD_ECommerce.Data.Models.Order.OrderItem", b =>
+                {
+                    b.HasOne("MMD_ECommerce.Data.Models.Orders.Order", null)
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.OwnsOne("MMD_ECommerce.Data.Models.Order.OrderItem.orderItemProduct#MMD_ECommerce.Data.Models.Order.OrderItemProduct", "orderItemProduct", b1 =>
+                        {
+                            b1.Property<Guid>("OrderItemId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("PictureUrl")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.Property<int>("ProductId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("ProductName")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("OrderItemId");
+
+                            b1.ToTable("OrderItems", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderItemId");
+                        });
+
+                    b.Navigation("orderItemProduct")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Orders.Order", b =>
                 {
-                    b.HasOne("MMD_ECommerce.Data.Models.Orders.DeliveryMethods", "DeliveryMethod")
+                    b.HasOne("MMD_ECommerce.Data.Models.Order.Order.DeliveryMethods", "DeliveryMethod")
                         .WithMany()
                         .HasForeignKey("DeliveryMethodId");
 
-                    b.OwnsOne("MMD_ECommerce.Data.Models.Orders.ShippingAddress", "ShippingAddress", b1 =>
+                    b.OwnsOne("MMD_ECommerce.Data.Models.Orders.Order.ShippingAddress#MMD_ECommerce.Data.Models.Order.Order.ShippingAddress", "ShippingAddress", b1 =>
                         {
                             b1.Property<Guid>("OrderId")
                                 .HasColumnType("uniqueidentifier");
@@ -599,7 +601,7 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                             b1.HasKey("OrderId");
 
-                            b1.ToTable("Orders");
+                            b1.ToTable("Orders", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderId");
@@ -609,33 +611,6 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.Navigation("ShippingAddress")
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MMD_ECommerce.Data.Models.Orders.OrderItem", b =>
-                {
-                    b.HasOne("MMD_ECommerce.Data.Models.Orders.Order", null)
-                        .WithMany("OrderItems")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("MMD_ECommerce.Data.Models.Products.Product", "Product")
-                        .WithMany("OrderItems")
-                        .HasForeignKey("productID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("MMD_ECommerce.Data.Models.Payments.Payment", b =>
-                {
-                    b.HasOne("MMD_ECommerce.Data.Models.Orders.Order", "Order")
-                        .WithOne("Payment")
-                        .HasForeignKey("MMD_ECommerce.Data.Models.Payments.Payment", "OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Products.Product", b =>
@@ -679,19 +654,11 @@ namespace MMD_ECommerce.Infrastructure.Migrations
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Orders.Order", b =>
                 {
                     b.Navigation("OrderItems");
-
-                    b.Navigation("Payment")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Products.Category", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("MMD_ECommerce.Data.Models.Products.Product", b =>
-                {
-                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Users.AppUser", b =>

@@ -1,11 +1,6 @@
 ﻿using MMD_ECommerce.Data.Models.Products;
 using MMD_ECommerce.Infrastructure.Repositories.Abstractions;
 using MMD_ECommerce.Service.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Service.Implementations
 {
@@ -18,7 +13,74 @@ namespace MMD_ECommerce.Service.Implementations
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<Category>> GetAllCategories() 
-            => await _unitOfWork.Repository<Category,int>().GetAllAsync();
+        public async Task<string> CreateCategory(Category category)
+        {
+            if (category == null) return "Bad Request";
+
+            category.CreatedAt = DateTime.Now;
+            category.UpdatedAt = DateTime.Now;
+            await _unitOfWork.Repository<Category, int>().AddAsync(category);
+            await _unitOfWork.CompleteAsync();
+
+            return "Success";
+        }
+
+        public async Task<string> DeleteCategory(int id)
+        {
+            var category = await _unitOfWork.Repository<Category, int>().GetAsync(id);
+
+            if (category == null) return "Not Found";
+
+            _unitOfWork.Repository<Category, int>().Delete(category);
+
+            await _unitOfWork.CompleteAsync();
+
+            return "Success";
+        }
+
+        public async Task<string> EditCategory(Category category)
+        {
+            var existingCategory = await _unitOfWork.Repository<Category, int>().GetAsync(category.Id);
+
+            if (existingCategory == null)
+            {
+                return "Category not found";
+            }
+
+            _unitOfWork.Repository<Category, int>().Detach(existingCategory);
+
+            category.UpdatedAt = DateTime.Now;
+
+            _unitOfWork.Repository<Category, int>().Update(category);
+            await _unitOfWork.CompleteAsync();
+
+            return "Success";
+        }
+
+        public async Task<IEnumerable<Category>> GetAllCategories()
+            => await _unitOfWork.Repository<Category, int>().GetAllAsync();
+
+        public async Task<Category?> GetCategoryById(int id)
+            => await _unitOfWork.Repository<Category, int>().GetAsync(id);
+
+        public async Task<bool> IsCategoryExist(string name)
+        {
+            var categories = await _unitOfWork.Repository<Category, int>().GetAllAsync();
+
+            foreach (var category in categories)
+            {
+                if (category.Name.Equals(name))
+                    return false;
+            }
+
+            return true;
+        }
+
+        public async Task<bool> IsCategoryExistExcludeSelf(string name, int catId)
+        {
+            var allCategories = await _unitOfWork.Repository<Category, int>().GetAllAsync();
+            return !allCategories.Any(c => c.Name == name && c.Id != catId);
+        }
+
     }
 }

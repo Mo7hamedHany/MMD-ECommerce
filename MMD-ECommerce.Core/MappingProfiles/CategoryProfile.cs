@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
-using MMD_ECommerce.Core.DTOs;
+using MMD_ECommerce.Core.DTOs.Categories;
 using MMD_ECommerce.Data.Models.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Core.MappingProfiles
 {
@@ -13,7 +8,9 @@ namespace MMD_ECommerce.Core.MappingProfiles
     {
         public CategoryProfile()
         {
-            CreateMap<Category,CategoryDto>();
+            CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<CategoryToCreateDto, Category>();
         }
+
     }
 }

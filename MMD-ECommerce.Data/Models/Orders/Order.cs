@@ -3,7 +3,7 @@ using MMD_ECommerce.Data.Models.Payments;
 
 namespace MMD_ECommerce.Data.Models.Orders
 {
-    public class Order : ModelKey<Guid>, IBase
+    public class Order : ModelKey<Guid>, ITimeTrackEntity
     {
         public string BuyerEmail { get; set; }
 

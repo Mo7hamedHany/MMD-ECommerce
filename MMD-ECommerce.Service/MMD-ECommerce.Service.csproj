@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Stripe.net" Version="44.13.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MMD-ECommerce.Infrastructure\MMD-ECommerce.Infrastructure.csproj" />
   </ItemGroup>
 

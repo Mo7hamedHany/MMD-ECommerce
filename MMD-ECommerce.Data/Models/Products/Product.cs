@@ -1,9 +1,8 @@
 ﻿using MMD_ECommerce.Data.Bases;
-using MMD_ECommerce.Data.Models.Orders;
 
 namespace MMD_ECommerce.Data.Models.Products
 {
-    public class Product : ModelKey<int>, IBase
+    public class Product : ModelKey<int>, ITimeTrackEntity
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -18,6 +17,5 @@ namespace MMD_ECommerce.Data.Models.Products
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
         public string? MerchantEmail { get; set; }
-        public virtual List<OrderItem> OrderItems { get; set; }
     }
 }

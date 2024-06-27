@@ -12,9 +12,5 @@ namespace MMD_ECommerce.Service.Abstractions
         Task<Order> UpdatePaymentStatusFailed(string paymentIntentId);
 
         Task<Order> UpdatePaymentStatusSuceeded(string paymentIntentId);
-
-        Task<string> AddPayment(string paymentIntentId);
-
-        //Task<Order> ConfirmPaymentAsync(string clientSecret, string paymentIntentId, string paymentMethodId);
     }
 }
