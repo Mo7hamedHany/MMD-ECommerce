@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MMD_ECommerce.Data.Models.Order
+namespace MMD_ECommerce.Data.Models.Orders
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum PaymentStatus

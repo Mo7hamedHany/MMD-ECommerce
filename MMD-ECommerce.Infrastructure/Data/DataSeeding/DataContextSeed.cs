@@ -1,12 +1,7 @@
-﻿using MMD_ECommerce.Data.Models.Order.Order;
+﻿using MMD_ECommerce.Data.Models.Orders;
 using MMD_ECommerce.Data.Models.Products;
 using MMD_ECommerce.Infrastructure.Data.Contexts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Infrastructure.Data.DataSeeding
 {
@@ -85,5 +80,5 @@ namespace MMD_ECommerce.Infrastructure.Data.DataSeeding
             }
 
         }
-        }
+    }
 }

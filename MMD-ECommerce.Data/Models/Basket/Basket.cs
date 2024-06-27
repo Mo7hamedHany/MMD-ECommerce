@@ -1,10 +1,4 @@
 ﻿using MMD_ECommerce.Data.Bases;
-using MMD_ECommerce.Data.Models.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Data.Models.Basket
 {
@@ -19,6 +13,8 @@ namespace MMD_ECommerce.Data.Models.Basket
         public string? PaymentIntentId { get; set; }
 
         public string? ClientSecret { get; set; }
+
+        public string? PaymentMethodId { get; set; }
 
         public DateTime CreatedAt { get; set; }
 

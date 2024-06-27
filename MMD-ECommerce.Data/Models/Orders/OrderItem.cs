@@ -1,7 +1,7 @@
 ﻿using MMD_ECommerce.Data.Bases;
 using MMD_ECommerce.Data.Models.Products;
 
-namespace MMD_ECommerce.Data.Models.Order
+namespace MMD_ECommerce.Data.Models.Orders
 {
     public class OrderItem : ModelKey<Guid>
     {

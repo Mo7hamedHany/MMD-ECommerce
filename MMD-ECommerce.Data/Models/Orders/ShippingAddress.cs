@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MMD_ECommerce.Data.Models.Order.Order
+﻿namespace MMD_ECommerce.Data.Models.Orders
 {
     public class ShippingAddress
     {

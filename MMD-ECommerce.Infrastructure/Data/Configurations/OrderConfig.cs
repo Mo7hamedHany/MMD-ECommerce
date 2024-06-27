@@ -1,12 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MMD_ECommerce.Data.Models.Order;
+
 using MMD_ECommerce.Data.Models.Orders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MMD_ECommerce.Data.Models.Payments;
 
 namespace MMD_ECommerce.Infrastructure.Data.Configurations
 {
@@ -17,6 +13,10 @@ namespace MMD_ECommerce.Infrastructure.Data.Configurations
             builder.HasMany(o => o.OrderItems).WithOne().OnDelete(DeleteBehavior.Cascade);
 
             builder.OwnsOne(o => o.ShippingAddress, o => o.WithOwner());
+
+            builder.HasOne(o => o.Payment)
+                  .WithOne(p => p.Order)
+                  .HasForeignKey<Payment>(p => p.OrderId);
 
             builder.Property(o => o.SubTotal).HasColumnType("decimal(18,3)");
 
