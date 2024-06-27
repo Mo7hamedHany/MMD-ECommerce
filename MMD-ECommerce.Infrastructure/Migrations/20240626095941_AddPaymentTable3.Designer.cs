@@ -4,6 +4,7 @@ using MMD_ECommerce.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MMD_ECommerce.Infrastructure.Migrations
 {
     [DbContext(typeof(MMDDataContext))]
-    partial class MMDDataContextModelSnapshot : ModelSnapshot
+    [Migration("20240626095941_AddPaymentTable3")]
+    partial class AddPaymentTable3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -329,6 +331,9 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MerchantEmail")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")

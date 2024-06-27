@@ -4,6 +4,7 @@ using MMD_ECommerce.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MMD_ECommerce.Infrastructure.Migrations
 {
     [DbContext(typeof(MMDDataContext))]
-    partial class MMDDataContextModelSnapshot : ModelSnapshot
+    [Migration("20240626074052_AddPaymentTable")]
+    partial class AddPaymentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -261,6 +263,9 @@ namespace MMD_ECommerce.Infrastructure.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier");
 
@@ -268,17 +273,13 @@ namespace MMD_ECommerce.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PaymentStatus")
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("OrderId")
-                        .IsUnique();
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Payments");
                 });
@@ -329,6 +330,9 @@ namespace MMD_ECommerce.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MerchantEmail")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -630,8 +634,8 @@ namespace MMD_ECommerce.Infrastructure.Migrations
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Payments.Payment", b =>
                 {
                     b.HasOne("MMD_ECommerce.Data.Models.Orders.Order", "Order")
-                        .WithOne("Payment")
-                        .HasForeignKey("MMD_ECommerce.Data.Models.Payments.Payment", "OrderId")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -679,9 +683,6 @@ namespace MMD_ECommerce.Infrastructure.Migrations
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Orders.Order", b =>
                 {
                     b.Navigation("OrderItems");
-
-                    b.Navigation("Payment")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MMD_ECommerce.Data.Models.Products.Category", b =>

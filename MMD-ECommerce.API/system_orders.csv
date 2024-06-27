@@ -1,0 +1,2 @@
+OrderId, BuyerEmail, OrderDate, ProductId, ProductName, Quantity, Price, Total
+7dae0441-e884-41c9-95de-08dc9524e015, hanykasim.tawfik@gmail.com, 25/06/2024 17:46:13, 2, Samsung Galaxy S21, 1, 799.990, 799.990

@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MMD_ECommerce.Data.Bases;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MMD_ECommerce.Infrastructure.Specifications
 {
@@ -33,8 +28,19 @@ namespace MMD_ECommerce.Infrastructure.Specifications
                   .Aggregate(query, (currentQuery, expression) => currentQuery.Include(expression));
             }
 
+            if (specification.ThenIncludeExpressions.Any())
+            {
+                foreach (var thenIncludeExpression in specification.ThenIncludeExpressions)
+                {
+                    var includeExpression = thenIncludeExpression.Item1;
+                    var thenIncludeExpr = thenIncludeExpression.Item2;
+
+                    query = query.Include(includeExpression).ThenInclude(thenIncludeExpr);
+                }
+            }
+
             return query;
 
         }
     }
-    }
+}

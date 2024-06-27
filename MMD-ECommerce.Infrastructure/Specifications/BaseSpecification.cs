@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
 
 namespace MMD_ECommerce.Infrastructure.Specifications
 {
@@ -17,6 +12,8 @@ namespace MMD_ECommerce.Infrastructure.Specifications
         public Expression<Func<T, bool>> Criteria { get; }
 
         public List<Expression<Func<T, object>>> IncludeExpressions { get; } = new();
+
+        public List<Tuple<Expression<Func<T, object>>, Expression<Func<object, object>>>> ThenIncludeExpressions { get; } = new();
 
         public Expression<Func<T, object>> OrderBy { get; protected set; }
 
@@ -33,6 +30,11 @@ namespace MMD_ECommerce.Infrastructure.Specifications
             IsPaginated = true;
             Take = pageSize;
             Skip = (pageIndex - 1) * pageSize;
+        }
+
+        public void AddThenInclude(Expression<Func<T, object>> includeExpression, Expression<Func<object, object>> thenIncludeExpression)
+        {
+            ThenIncludeExpressions.Add(Tuple.Create(includeExpression, thenIncludeExpression));
         }
     }
 }

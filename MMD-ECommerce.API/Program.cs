@@ -21,14 +21,10 @@ namespace MMD_ECommerce.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
             builder.Services.AddDbContext<MMDDataContext>(opt =>
                 opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-            builder.Services.AddInfrastructureDependencies().AddServiceDependencies().AddCoreDependencies();
+            builder.Services.AddInfrastructureDependencies(builder.Configuration).AddServiceDependencies().AddCoreDependencies();
 
             builder.Services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<MMDDataContext>()
@@ -48,6 +44,7 @@ namespace MMD_ECommerce.API
 
     });
 
+            builder.Services.AddSwaggerService();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -96,11 +93,16 @@ namespace MMD_ECommerce.API
                         UserName = email,
                         Email = email
                     };
-
-                    await userManager.CreateAsync(user, password);
-                    await userManager.AddToRoleAsync(user, "Admin");
+                    var result = await userManager.CreateAsync(user, password);
+                    if (result.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(user, "Admin");
+                    }
+                    else
+                    {
+                        // Log errors from result.Errors
+                    }
                 }
-
             }
 
             app.Run();

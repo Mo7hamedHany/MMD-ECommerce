@@ -1,12 +1,5 @@
 ﻿using MMD_ECommerce.Data.Bases;
-using MMD_ECommerce.Data.Models.Order.Order;
-using MMD_ECommerce.Data.Models.Order;
-using MMD_ECommerce.Data.Models.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MMD_ECommerce.Data.Models.Payments;
 
 namespace MMD_ECommerce.Data.Models.Orders
 {
@@ -34,6 +27,8 @@ namespace MMD_ECommerce.Data.Models.Orders
         public string? PaymentIntentId { get; set; }
 
         public string? BasketId { get; set; }
+
+        public Payment Payment { get; set; }
 
         public decimal Total() => SubTotal + DeliveryMethod.Price;
     }
