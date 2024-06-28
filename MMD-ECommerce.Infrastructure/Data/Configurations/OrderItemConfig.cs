@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MMD_ECommerce.Data.Models.Order;
+using MMD_ECommerce.Data.Models.Orders;
 
 namespace MMD_ECommerce.Infrastructure.Data.Configurations
 {

@@ -15,10 +15,12 @@ namespace MMD_ECommerce.API.Controllers
     {
 
         private readonly ICsvExportService _csvExportService;
+        private readonly IPdfExportService _pdfExportService;
 
-        public OrderController(ICsvExportService csvExportService)
+        public OrderController(ICsvExportService csvExportService, IPdfExportService pdfExportService)
         {
             _csvExportService = csvExportService;
+            _pdfExportService = pdfExportService;
         }
 
         [HttpPost]
@@ -54,6 +56,14 @@ namespace MMD_ECommerce.API.Controllers
 
 
             return File(csvBytes, "text/csv", "system_orders.csv");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("export-orders-pdf")]
+        public async Task<IActionResult> ExportOrdersPdf()
+        {
+            var pdfBytes = await _pdfExportService.GenerateOrderPdfAsync();
+            return File(pdfBytes, "application/pdf", "orders.pdf");
         }
     }
 }

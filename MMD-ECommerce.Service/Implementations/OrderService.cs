@@ -1,6 +1,4 @@
-﻿using MMD_ECommerce.Data.Models.Order;
-using MMD_ECommerce.Data.Models.Order.Order;
-using MMD_ECommerce.Data.Models.Orders;
+﻿using MMD_ECommerce.Data.Models.Orders;
 using MMD_ECommerce.Data.Models.Products;
 using MMD_ECommerce.Infrastructure.Repositories.Abstractions;
 using MMD_ECommerce.Infrastructure.Specifications.Orders;

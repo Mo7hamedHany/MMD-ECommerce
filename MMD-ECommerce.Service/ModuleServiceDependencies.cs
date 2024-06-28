@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DinkToPdf;
+using DinkToPdf.Contracts;
+using Microsoft.Extensions.DependencyInjection;
 using MMD_ECommerce.Service.Abstractions;
 using MMD_ECommerce.Service.Implementations;
 
@@ -18,6 +20,9 @@ namespace MMD_ECommerce.Service
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<ICsvExportService, CsvExportService>();
+            services.AddScoped<IPdfExportService, PdfExportService>();
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+
             return services;
         }
     }

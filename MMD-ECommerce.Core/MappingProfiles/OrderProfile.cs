@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using MMD_ECommerce.Core.DTOs.Order;
 using MMD_ECommerce.Core.Helpers;
-using MMD_ECommerce.Data.Models.Order;
-using MMD_ECommerce.Data.Models.Order.Order;
 using MMD_ECommerce.Data.Models.Orders;
 
 namespace MMD_ECommerce.Core.MappingProfiles

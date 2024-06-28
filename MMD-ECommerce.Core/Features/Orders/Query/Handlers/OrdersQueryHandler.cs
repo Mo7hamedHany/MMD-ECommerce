@@ -3,7 +3,7 @@ using MediatR;
 using MMD_ECommerce.Core.Bases;
 using MMD_ECommerce.Core.DTOs.Order;
 using MMD_ECommerce.Core.Features.Orders.Query.Models;
-using MMD_ECommerce.Data.Models.Order.Order;
+using MMD_ECommerce.Data.Models.Orders;
 using MMD_ECommerce.Service.Abstractions;
 
 namespace MMD_ECommerce.Core.Features.Orders.Query.Handlers

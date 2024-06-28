@@ -1,5 +1,4 @@
-﻿using MMD_ECommerce.Data.Models.Order;
-using MMD_ECommerce.Data.Models.Orders;
+﻿using MMD_ECommerce.Data.Models.Orders;
 
 namespace MMD_ECommerce.Infrastructure.Specifications.Orders
 {

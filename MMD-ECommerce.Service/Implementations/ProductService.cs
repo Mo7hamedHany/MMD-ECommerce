@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using MMD_ECommerce.Data.Models;
-using MMD_ECommerce.Data.Models.Order;
 using MMD_ECommerce.Data.Models.Orders;
 using MMD_ECommerce.Data.Models.Products;
 using MMD_ECommerce.Infrastructure.Repositories.Abstractions;
