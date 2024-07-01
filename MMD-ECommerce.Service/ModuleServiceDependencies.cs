@@ -21,6 +21,7 @@ namespace MMD_ECommerce.Service
             services.AddScoped<IPaymentService, PaymentService>();
             services.AddScoped<ICsvExportService, CsvExportService>();
             services.AddScoped<IPdfExportService, PdfExportService>();
+            services.AddScoped<IFileService, FileService>();
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
             return services;

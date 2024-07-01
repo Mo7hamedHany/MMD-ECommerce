@@ -74,6 +74,8 @@ namespace MMD_ECommerce.Service.Implementations
                 SubTotal = subTotal,
                 PaymentIntentId = basket.PaymentIntentId,
                 BasketId = basket.Id,
+                CreatedAt = DateTime.UtcNow,
+                UpdatedAt = DateTime.UtcNow
             };
 
             await _unitOfWork.Repository<Order, Guid>().AddAsync(createdOrder);

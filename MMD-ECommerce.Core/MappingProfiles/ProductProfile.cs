@@ -19,7 +19,8 @@ namespace MMD_ECommerce.Core.MappingProfiles
 
             CreateMap<GetProductsQuery, ProductSpecificationParameters>();
 
-            CreateMap<ProductToCreateDto, Product>()
+            CreateMap<Product, ProductToCreateDto>()
+                .ForMember(dest => dest.PictureName, opt => opt.MapFrom(src => src.PictureUrl))
     .ReverseMap();
 
             CreateMap<ProductToEditDto, Product>()

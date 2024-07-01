@@ -10,16 +10,19 @@ namespace MMD_ECommerce.Core.Features.Products.Command.Handlers
     public class ProductCommandHandler : ResponseHandler,
         IRequestHandler<CreateProductCommand, Response<string>>,
         IRequestHandler<DeleteProductCommand, Response<string>>,
-        IRequestHandler<EditProductCommand, Response<string>>
+        IRequestHandler<EditProductCommand, Response<string>>,
+        IRequestHandler<UploadProductPictureCommand, Response<string>>
     {
 
         private readonly IProductService _productService;
+        private readonly IFileService _fileService;
         private readonly IMapper _mapper;
 
-        public ProductCommandHandler(IProductService productService, IMapper mapper)
+        public ProductCommandHandler(IProductService productService, IMapper mapper, IFileService fileService)
         {
             _productService = productService;
             _mapper = mapper;
+            _fileService = fileService;
         }
 
         public async Task<Response<string>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
@@ -57,6 +60,20 @@ namespace MMD_ECommerce.Core.Features.Products.Command.Handlers
             if (editResult is null) return BadRequest<string>();
             else if (editResult == "NotFound") return NotFound<string>("Product to be edit is not available right now");
             else return Success("Edited Successfully");
+        }
+
+        public async Task<Response<string>> Handle(UploadProductPictureCommand request, CancellationToken cancellationToken)
+        {
+            if (request.File == null || request.File.Length == 0)
+                return BadRequest<string>("No file uploaded.");
+
+            var photoUrl = await _fileService.UploadFileAsync(request.File);
+
+            if (string.IsNullOrEmpty(photoUrl))
+                return UnprocessableEntity<string>("An error occurred while uploading the file.");
+
+
+            return Success(photoUrl);
         }
     }
 }

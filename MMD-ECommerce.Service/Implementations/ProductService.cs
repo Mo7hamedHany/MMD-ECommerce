@@ -49,10 +49,6 @@ namespace MMD_ECommerce.Service.Implementations
             {
                 product.PictureUrl = Defaults.ProductPicture;
             }
-            else
-            {
-                product.PictureUrl = $"{_configuration["PicUrl"]}{product.PictureUrl}";
-            }
             await _unitOfWork.Repository<Product, int>().AddAsync(product);
             await _unitOfWork.CompleteAsync();
 

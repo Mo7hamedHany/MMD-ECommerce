@@ -70,5 +70,11 @@ namespace MMD_ECommerce.API.Controllers
 
             return Ok(await Mediator.Send(new GetAmountOfMerchantSolds(merchantEmail)));
         }
+
+        [HttpPost("upload-photo")]
+        public async Task<IActionResult> UploadPhoto([FromForm] IFormFile file)
+        {
+            return NewResult(await Mediator.Send(new UploadProductPictureCommand(file)));
+        }
     }
 }
